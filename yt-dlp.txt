@@ -1,0 +1,21 @@
+For a single video:
+
+yt-dlp -x --audio-format mp3 --output "%(title)s.%(ext)s" "https://www.youtube.com/watch?v=VIDEO_ID"
+
+For a playlist:
+yt-dlp -x --audio-format mp3 --output "%(title)s.%(ext)s" "https://www.youtube.com/playlist?list=PLAYLIST_ID"
+
+
+
+
+yt-dlp -x --audio-format mp3 --output "%(title)s.%(ext)s" "https://www.youtube.com/watch?v=0kXdYDeOc4U"
+
+Use this.
+.\yt-dlp.exe yt-dlp -x --audio-format mp3 --output "%(title)s.%(ext)s" "URL"
+
+use this to compile exe
+pyinstaller --onefile --noconsole --add-data "yt-dlp.exe;." your_script.py
+
+Set-ExecutionPolicy RemoteSigned –Scope Process
+
+MYenv\Scripts\activate.ps1
