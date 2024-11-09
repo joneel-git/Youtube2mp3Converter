@@ -59,7 +59,6 @@ clear_button = customtkinter.CTkButton(app, text="clear")
 clear_button.pack(padx=33, pady=33)
 clear_button.configure(command=lambda: entry.delete(0, customtkinter.END))
 
-titleLabel = customtkinter.CTkLabel(app, text=yt.title)
 # Handle app closing
 # Function to handle window closing
 def on_closing():
