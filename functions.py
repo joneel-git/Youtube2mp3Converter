@@ -3,10 +3,12 @@ from pytubefix import YouTube
 from pytubefix.cli import on_progress
 from CTkMessagebox import CTkMessagebox
 from customtkinter import CTkButton, CTk
-
+from pathlib import Path
+import os
 
 def get_url_from(entry):
-    save_path = "C:/Users/joneel/Downloads/"
+    path_to_download = str(os.path.join(Path.home(), "Downloads"))
+    save_path = path_to_download
     url = entry.get()  # Get the URL from the entry widget
     try:
         # This is the youtube object

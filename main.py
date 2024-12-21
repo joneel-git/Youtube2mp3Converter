@@ -1,7 +1,5 @@
 import customtkinter
 from functions import get_url_from
-import os
-import sys
 import requests
 
 # System settings
