@@ -25,7 +25,6 @@ def get_url_from(entry):
             message="Download completed successfully!",
             icon="images\\check.png",  # Ensure this is the correct way to specify the icon
         )
-        # Select download location for youtube video
         return ys
 
     except Exception as e:
