@@ -6,6 +6,15 @@ from customtkinter import CTkButton, CTk
 from pathlib import Path
 import os
 
+
+def path_to_images(image_name):
+    # Get the current working directory
+    image_dir = os.getcwd()
+    # The full path to the image
+    images_path = os.path.join(image_dir, "images", image_name)
+    return images_path
+
+
 def get_url_from(entry):
     path_to_download = str(os.path.join(Path.home(), "Downloads"))
     save_path = path_to_download
@@ -23,7 +32,7 @@ def get_url_from(entry):
         CTkMessagebox(
             title="Success",
             message="Download completed successfully!",
-            icon="images\\check.png",  # Ensure this is the correct way to specify the icon
+            icon=path_to_images("check.png"),
         )
         return ys
 
@@ -31,7 +40,7 @@ def get_url_from(entry):
         CTkMessagebox(
             title="Error",
             message=f"An error has occurred: {e}",
-            icon="images\\error.png",
+            icon=path_to_images("error.png"),
         )
         return None
 
@@ -39,7 +48,7 @@ def get_url_from(entry):
     # CTkMessagebox(
     #     title="Success",
     #     message="Download completed successfully!",
-    #     icon="check.png",  # Ensure this is the correct way to specify the icon
+    #     icon="check.png",
     # )
 
 
