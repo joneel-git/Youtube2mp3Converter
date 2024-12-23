@@ -14,8 +14,11 @@ def get_url_from(entry):
         # This is the youtube object
         yt = YouTube(url)
         # Attempt to get highest resolution video or audio only
-        ys = yt.streams.get_audio_only()
-        ys.download(output_path=save_path)
+        ys = yt.streams.filter(only_audio=True).first()
+        # Set the filename to the video title with .mp3 extension
+        filename = f"{yt.title}.mp3"
+        # Download the audio stream
+        ys.download(output_path=save_path, filename=filename)
 
         CTkMessagebox(
             title="Success",
