@@ -26,7 +26,7 @@ class App(ctk.CTk):
             text_color="white",
             font=self.my_font,
         )
-        self.my_label.pack(pady=50, padx=30)
+        self.my_label.pack(pady=40, padx=30)
 
         # # This is our Entry Widget where we add the URL
         self.entry = ctk.CTkEntry(
@@ -38,7 +38,7 @@ class App(ctk.CTk):
             border_width=2,
             corner_radius=5,
         )
-        self.entry.pack(padx=33, pady=33)
+        self.entry.pack(pady=35, padx=35)
 
         # This is the button Widget to handle an event
         self.MyButton = ctk.CTkButton(
@@ -49,11 +49,11 @@ class App(ctk.CTk):
             height=20,
             command=lambda: get_url_from(self.entry),  # Pass the entry widget
         )
-        self.MyButton.pack(padx=20, pady=30)
+        self.MyButton.pack(pady=25, padx=25)
 
         # A button to clear the entry widget
         self.clear_button = ctk.CTkButton(master=self, text="clear")
-        self.clear_button.pack(padx=33, pady=10)
+        self.clear_button.pack(pady=20, padx=20)
         self.clear_button.configure(command=lambda: (self.entry.delete(0, ctk.END)))
 
 
