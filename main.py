@@ -1,63 +1,69 @@
+# from tkinter import *
 import customtkinter as ctk
-from functions import get_url_from
-import requests
+from CTkListbox import *
+from functions import entry_input
+from functions import checkbox_event
 
-# System settings
-ctk.set_appearance_mode("dark")  # Modes: system (default), light dark
-ctk.set_default_color_theme("dark-blue")  # Themes: blue (default), dark
+# window
+ctk.set_appearance_mode("dark")
+ctk.set_default_color_theme("dark-blue")
 
 
 class App(ctk.CTk):
-    # Layout of the GUI will be written in the init itself
-    def __init__(self):
-        super().__init__()  # Call the parent class's constructor
-        self.title(
-            "Youtube to mp3 converter"
-        )  # Use self to refer to the current instance
-        # Dimensions of the window will be 200x200
-        self.geometry("700x450")
-        # Adding Ui Elements
-        self.my_font = ctk.CTkFont(family="Helvetica", size=17)
-
-        # This is the main label
-        self.my_label = ctk.CTkLabel(
-            master=self,
-            text="Enter a Youtube URL: ",
-            text_color="white",
-            font=self.my_font,
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.title("Grid")  # Use self to refer to the current instance
+        self.geometry("700x500")
+        # ////////////// Main Window Frame ///////////////
+        self.my_frame = ctk.CTkFrame(
+            master=self  # This is where am setting main frame to the root of the program
         )
-        self.my_label.pack(pady=40, padx=30)
+        self.my_frame.grid()
 
-        # # This is our Entry Widget where we add the URL
-        self.entry = ctk.CTkEntry(
-            master=self,  # Change app to self,
-            placeholder_text="link",
-            font=self.my_font,
-            width=450,
-            height=30,
-            border_width=2,
-            corner_radius=5,
+        self.my_frame.grid_rowconfigure(
+            0, weight=0
+        )  # Here we have configured 2 rows to use
+        self.my_frame.grid_rowconfigure(1, weight=1)
+        self.my_frame.grid_columnconfigure(
+            0, weight=1
+        )  # Here we have configured 2 columns to use
+        self.my_frame.grid_columnconfigure(1, weight=1)
+
+        # Widgets
+        self.label = ctk.CTkLabel(
+            self.my_frame,
+            text="Iam a Label",
         )
-        self.entry.pack(pady=35, padx=35)
+        self.button1 = ctk.CTkButton(self.my_frame, text="Button1")
+        self.my_entry = ctk.CTkEntry(self.my_frame, width=500)
 
-        # This is the button Widget to handle an event
-        self.MyButton = ctk.CTkButton(
-            master=self,  # Change app to self
-            text="Convert to mp3",
-            font=self.my_font,
-            width=40,
-            height=20,
-            command=lambda: get_url_from(self.entry),  # Pass the entry widget
+        self.x = ctk.IntVar()
+
+        # Create the checkbox
+        self.checkbox = ctk.CTkCheckBox(
+            self.my_frame,
+            text="CTkCheckBox",
+            command=lambda: checkbox_event(self.x),
+            variable=self.x,
+            onvalue=1,
+            offvalue=0,
         )
-        self.MyButton.pack(pady=25, padx=25)
+        self.checkbox.grid()
 
-        # A button to clear the entry widget
-        self.clear_button = ctk.CTkButton(master=self, text="clear")
-        self.clear_button.pack(pady=20, padx=20)
-        self.clear_button.configure(command=lambda: (self.entry.delete(0, ctk.END)))
+        self.second_frame = ctk.CTkFrame(master=self)
+        # Placing widgets using Grid
+        self.label.grid(row=1, column=0, padx=10, pady=10)
+        self.my_entry.grid(row=2, column=0, padx=10, pady=10)
+        self.checkbox.grid(row=2, column=1, padx=20, pady=10)
+        self.button1.grid(row=3, column=0, padx=10, pady=10)
+        self.second_frame.grid(row=0, column=2, sticky=("N", "S", "E"))
+
+        # ////////////// List Box frame ///////////////
 
 
 if __name__ == "__main__":
     app = App()
     # This runs the app
     app.mainloop()
+
+# Build 2 frames
