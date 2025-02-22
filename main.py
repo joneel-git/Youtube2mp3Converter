@@ -2,6 +2,7 @@
 import customtkinter as ctk
 from CTkListbox import *
 from functions import entry_input
+from functions import remove_entry
 from functions import checkbox_event
 
 # window
@@ -13,27 +14,35 @@ class MyFrame(ctk.CTkFrame):
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
 
+        self.db = TinyDB("db.json")
+
         # add widgets onto the frame...
         self.label = ctk.CTkLabel(
             master=self,
             text="Iam a Label",
         )
         # ///////////////////////////////////////////////
-        self.frame_below = CTkListbox(
+        self.my_list = CTkListbox(
             master=self,
             border_color="gray",
             border_width=1,
-            width=600,
+            width=500,
             height=200,
         )
         # //////// the Entry widget
         self.my_entry = ctk.CTkEntry(master=self, width=500)
 
-        # //////// This Submit button handles the calls from entry
+        # //////// This button sends data from my_entry to my_list widget
         self.button1 = ctk.CTkButton(
             master=self,
-            command=lambda: entry_input(self.my_entry, self.frame_below),
+            command=lambda: entry_input(self.my_list, self.my_entry),
             text="Submit",
+        )
+
+        self.button2 = ctk.CTkButton(
+            master=self,
+            command=lambda: remove_entry(self.my_list),
+            text="Remove",
         )
 
         self.x = ctk.IntVar()
@@ -51,17 +60,18 @@ class MyFrame(ctk.CTkFrame):
 
         # ///////// Placing widgets using Grid
         self.label.grid(row=1, column=0, padx=10, pady=10)
-        self.my_entry.grid(row=2, column=0, padx=10, pady=10)
-        self.checkbox.grid(row=2, column=1, padx=20, pady=10)
+        self.checkbox.grid(row=2, column=2, padx=20, pady=10)
         self.button1.grid(row=3, column=0, padx=10, pady=10)
-        self.frame_below.grid(row=4, column=0, padx=20, pady=20, sticky="ew")
+        self.button2.grid(row=3, column=1, sticky="w")
+        self.my_entry.grid(row=2, column=0, padx=10, pady=10, columnspan=2)
+        self.my_list.grid(row=4, column=0, padx=20, pady=20, sticky="ew", columnspan=2)
 
 
 class App(ctk.CTk):
     def __init__(self):
         super().__init__()
         self.title("Grid")  # Use self to refer to the current instance
-        self.geometry("800x400")
+        self.geometry("700x400")
         # This is placing the class MyFrame above on to the root of the app
         self.my_frame = MyFrame(master=self)
         self.my_frame.grid()
