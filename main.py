@@ -14,8 +14,6 @@ class MyFrame(ctk.CTkFrame):
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
 
-        self.db = TinyDB("db.json")
-
         # add widgets onto the frame...
         self.label = ctk.CTkLabel(
             master=self,
