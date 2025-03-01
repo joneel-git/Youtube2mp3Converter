@@ -47,16 +47,17 @@ class MyFrame(ctk.CTkFrame):
             # command=lambda: entry_input(self.my_entry, self.listBox),
             text="add_value",
         )
-        # ///////////////////////
+        # ///////
 
-        self.x = ctk.IntVar()
+        # This name indicates that the variable holds the state of the checkbox (checked or unchecked).
+        self.checkbox_state = ctk.IntVar()
 
         # Create the checkbox
         self.checkbox_widget = ctk.CTkCheckBox(
             master=self,
             text="CTkCheckBox",
-            command=lambda: checkbox_event(self.x),
-            variable=self.x,
+            command=lambda: checkbox_event(self.checkbox_state),
+            variable=self.checkbox_state,
             onvalue=1,
             offvalue=0,
         )
@@ -74,7 +75,9 @@ class MyFrame(ctk.CTkFrame):
         self.my_text_widget.grid(row=4, column=1, padx=10, pady=10, sticky="w")
         # ///////
         self.entry_widget.grid(row=2, column=0, padx=10, pady=10, columnspan=2)
-        self.listbox_widget.grid(row=5, column=0, padx=20, pady=20, sticky="ew", columnspan=2)
+        self.listbox_widget.grid(
+            row=5, column=0, padx=20, pady=20, sticky="ew", columnspan=2
+        )
 
 
 class App(ctk.CTk):
