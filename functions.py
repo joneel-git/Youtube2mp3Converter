@@ -28,7 +28,6 @@ def path_to_download(value):
 
 
 def entry_input(my_entry, listBox):
-    URL = my_entry.get()
     try:
         # Assuming URL is a valid YouTube URL
         # value = YouTube(URL)  # Create an instance of YouTube
@@ -41,6 +40,7 @@ def entry_input(my_entry, listBox):
         #     output_path=path_to_download(value=filename),  # Corrected to use a comma
         #     filename=filename,  # Use the filename variable
         # )
+        URL = my_entry.get()
         value = URL
         listBox.insert("end", value)  # Add the value to the end of the listbox
     except Exception as e:
