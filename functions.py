@@ -74,8 +74,8 @@ def entry_input(entry_widget, listbox_widget):
 
 
 # Removing method
-def remove_entry(listBox):
-    listBox.delete(0, "END")
+def remove_entry(listbox_widget):
+    listbox_widget.delete(0, "END")
 
 
 def checkbox_event(x):
