@@ -19,7 +19,10 @@ def file(self):
     )
     if self.my_file:
         self.my
+
+
 # ///////////////////////////
+
 
 def path_to_download(value):
     path_to_download = str(os.path.join(Path.home(), "Downloads"))
@@ -27,8 +30,7 @@ def path_to_download(value):
     return save_path
 
 
-def entry_input(my_entry, listBox):
-    try:
+def entry_input(entry_widget, listbox_widget):
         # Assuming URL is a valid YouTube URL
         # value = YouTube(URL)  # Create an instance of YouTube
         # name = value.title  # Get the title of the video
@@ -40,21 +42,35 @@ def entry_input(my_entry, listBox):
         #     output_path=path_to_download(value=filename),  # Corrected to use a comma
         #     filename=filename,  # Use the filename variable
         # )
-        URL = my_entry.get()
-        value = URL
-        listBox.insert("end", value)  # Add the value to the end of the listbox
+        
+    try:
+        value = entry_widget.get()  # Get the input from the entry widget
+        # Checking that the value is not empty.
+        if value:
+            listbox_widget.insert("end", value)  # Insert the value into the Listbox
+            # Print the current contents of the Listbox
+            items = [listbox_widget.get(i) for i in range(listbox_widget.size())]
+            print(items)  # Print the list of items
+        else:
+            print("No value entered.")  # Inform the user that the entry is empty
     except Exception as e:
-        print(f"Some Error! {e}")
-        print("Task Completed!")
-    # URL = my_entry.get()
-    # value = (
-    #     YouTube(URL)
-    #     .streams.first()
-    #     .download()
-    #     .filter(progressive=True, file_extension="mp4")
-    # )
+        print(f"Some Error! {e}")  # Print the error message
+    finally:
+        # Print the current contents of the Listbox
+        items = [listbox_widget.get(i) for i in range(listbox_widget.size())]
+        print(items)  # Print the list of items
+        print()  # Print a new line for better readability
+        # URL = [
+        #     "Python",
+        #     "Java",
+        #     "Javascript",
+        #     "Artificial Intelligence",
+        #     "Tutorialspoint.com",
+        # ]
 
-    # entry.delete(0, 'end')  # Clear the entry after adding
+        # my_list = [f"{URL}"]
+        # my_list.append(my_list)
+        # return my_list
 
 
 # Removing method

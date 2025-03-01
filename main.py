@@ -13,38 +13,36 @@ class MyFrame(ctk.CTkFrame):
         super().__init__(master, **kwargs)
 
         # Widgets..
-        self.label = ctk.CTkLabel(
+        self.label_widget = ctk.CTkLabel(
             master=self,
             text="Iam a Label",
         )
         # //////////
-        self.listBox = CTkListbox(
+        self.listbox_widget = CTkListbox(
             master=self,
             border_color="gray",
             border_width=1,
             width=500,
             height=200,
         )
-        # //////// the Entry widget
-        self.my_entry = ctk.CTkEntry(master=self, width=500)
-
+        self.entry_widget = ctk.CTkEntry(master=self, width=500)
         # //////// This button sends data from my_entry to my_list widget
-        self.button1 = ctk.CTkButton(
+        self.button1_widget = ctk.CTkButton(
             master=self,
-            command=lambda: entry_input(self.my_entry, self.listBox),
+            command=lambda: entry_input(self.entry_widget, self.listbox_widget),
             text="Submit",
         )
 
-        self.button2 = ctk.CTkButton(
+        self.button2_widget = ctk.CTkButton(
             master=self,
-            command=lambda: remove_entry(self.listBox),
+            command=lambda: remove_entry(self.listbox_widget),
             text="Remove",
         )
         # //////////////////////////////////////////////////////////////////
         # //// Am working on File dialog method here /////////////////////////
         # //////////////////////////////////////////////////////////////////
-        self.my_text = ctk.CTkTextbox(master=self, width=100, height=70)
-        self.add_value = ctk.CTkButton(
+        self.my_text_widget = ctk.CTkTextbox(master=self, width=100, height=70)
+        self.add_value_widget = ctk.CTkButton(
             master=self,
             # command=lambda: entry_input(self.my_entry, self.listBox),
             text="add_value",
@@ -54,7 +52,7 @@ class MyFrame(ctk.CTkFrame):
         self.x = ctk.IntVar()
 
         # Create the checkbox
-        self.checkbox = ctk.CTkCheckBox(
+        self.checkbox_widget = ctk.CTkCheckBox(
             master=self,
             text="CTkCheckBox",
             command=lambda: checkbox_event(self.x),
@@ -62,21 +60,21 @@ class MyFrame(ctk.CTkFrame):
             onvalue=1,
             offvalue=0,
         )
-        self.checkbox.grid()
+        self.checkbox_widget.grid()
 
         # Placing widgets using Grid
-        self.label.grid(row=1, column=0, padx=10, pady=10)
-        self.checkbox.grid(row=2, column=2, padx=10, pady=10)
-        self.button1.grid(row=3, column=0, padx=10, pady=10)
-        self.button2.grid(row=3, column=1, sticky="w")
+        self.label_widget.grid(row=1, column=0, padx=10, pady=10)
+        self.checkbox_widget.grid(row=2, column=2, padx=10, pady=10)
+        self.button1_widget.grid(row=3, column=0, padx=10, pady=10)
+        self.button2_widget.grid(row=3, column=1, sticky="w")
         # //////////////////////////////////////////////////////////////////
         # //// Am working on File dialog method here /////////////////////////
         # //////////////////////////////////////////////////////////////////
-        self.add_value.grid(row=4, column=0, padx=10, pady=10)
-        self.my_text.grid(row=4, column=1, padx=10, pady=10,sticky="w")
+        self.add_value_widget.grid(row=4, column=0, padx=10, pady=10)
+        self.my_text_widget.grid(row=4, column=1, padx=10, pady=10, sticky="w")
         # ///////
-        self.my_entry.grid(row=2, column=0, padx=10, pady=10, columnspan=2)
-        self.listBox.grid(row=5, column=0, padx=20, pady=20, sticky="ew", columnspan=2)
+        self.entry_widget.grid(row=2, column=0, padx=10, pady=10, columnspan=2)
+        self.listbox_widget.grid(row=5, column=0, padx=20, pady=20, sticky="ew", columnspan=2)
 
 
 class App(ctk.CTk):
