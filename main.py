@@ -29,7 +29,7 @@ class MyFrame(ctk.CTkFrame):
         # //////// This button sends data from my_entry to my_list widget
         self.button1_widget = ctk.CTkButton(
             master=self,
-            command=lambda: entry_input(self.entry_widget, self.listbox_widget),
+            command=lambda: download_video(self.entry_widget, self.listbox_widget),
             text="Submit",
         )
 
@@ -41,11 +41,19 @@ class MyFrame(ctk.CTkFrame):
         # //////////////////////////////////////////////////////////////////
         # //// Am working on File dialog method here /////////////////////////
         # //////////////////////////////////////////////////////////////////
-        self.my_text_widget = ctk.CTkTextbox(master=self, width=100, height=70)
+        self.my_text_widget = ctk.CTkLabel(
+            master=self,
+            text_color="green",
+            width=100,
+            height=70,
+            text="file dialog",
+        )
         self.add_value_widget = ctk.CTkButton(
             master=self,
+            width=10,
+            height=10,
             # command=lambda: entry_input(self.my_entry, self.listBox),
-            text="add_value",
+            text="Browse file",
         )
         # ///////
 

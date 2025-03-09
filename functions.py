@@ -1,5 +1,6 @@
 import customtkinter as ctk
 from pytubefix import YouTube
+from pytubefix import *
 from tinydb import TinyDB, Query
 from pathlib import Path
 import os
@@ -24,49 +25,28 @@ def file(self):
 # ///////////////////////////
 
 
-def path_to_download(value):
-    path_to_download = str(os.path.join(Path.home(), "Downloads"))
-    save_path = path_to_download
+def download_path():
+    downloads_path = str(Path.home() / "Downloads")
+    save_path = downloads_path 
     return save_path
 
 
-def entry_input(entry_widget, listbox_widget):
-    # Assuming URL is a valid YouTube URL
-    # value = YouTube(URL)  # Create an instance of YouTube
-    # name = value.title  # Get the title of the video
-    # filename = ""  # Initialize filename
-    # filename += name  # Concatenate the title to filename
-
-    # # Download the first progressive stream with mp4 extension
-    # value.streams.filter(progressive=True, file_extension="mp4").first().download(
-    #     output_path=path_to_download(value=filename),  # Corrected to use a comma
-    #     filename=filename,  # Use the filename variable
-    # )
-
+def download_video(entry_widget, listbox_widget):
     try:
-        value = entry_widget.get()  # Get the input from the entry widget
-        # Checking that the value is not empty.
-        if value:
-            listbox_widget.insert("end", value)  # Insert the value into the Listbox
-            # Print the current contents of the Listbox
-            for i in value:
-                value = [listbox_widget.get(i)]
-                print(value)  # Print the list of items
-        else:
-            print("No value entered.")  # Inform the user that the entry is empty
+        my_input = entry_widget.get()
+        for youtube in my_input:
+            # link of the video to be downloaded
+            youtube = YouTube(my_input.strip())
+            filename = youtube.title
+            youtube.streams.get_highest_resolution().download(
+            output_path=download_path())
+
+        listbox_widget.insert("end", filename)  # Insert the value into the Listbox
+        # Print the current contents of the Listbox
+        print(filename)  # Print the title of the video
     except Exception as e:
         print(f"Some Error! {e}")  # Print the error message
-        # URL = [
-        #     "Python",
-        #     "Java",
-        #     "Javascript",
-        #     "Artificial Intelligence",
-        #     "Tutorialspoint.com",
-        # ]
 
-        # my_list = [f"{URL}"]
-        # my_list.append(my_list)
-        # return my_list
 
 
 # Removing method
