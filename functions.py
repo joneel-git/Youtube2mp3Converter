@@ -3,6 +3,7 @@ from pytubefix import YouTube
 from pytubefix import *
 from tinydb import TinyDB, Query
 from pathlib import Path
+import threading
 import os
 from customtkinter import filedialog
 
@@ -32,20 +33,22 @@ def download_path():
 
 
 def download_video(entry_widget, listbox_widget):
-    try:
-        my_input = entry_widget.get()
-        for youtube in my_input:
-            # link of the video to be downloaded
+    def download():
+        try:
+            my_input = entry_widget.get()
             youtube = YouTube(my_input.strip())
             filename = youtube.title
             youtube.streams.get_highest_resolution().download(
-            output_path=download_path())
+                output_path=download_path()
+            )
 
-        listbox_widget.insert("end", filename)  # Insert the value into the Listbox
-        # Print the current contents of the Listbox
-        print(filename)  # Print the title of the video
-    except Exception as e:
-        print(f"Some Error! {e}")  # Print the error message
+            listbox_widget.insert("end", filename)  # Insert the value into the Listbox
+            print(filename)  # Print the title of the video
+        except Exception as e:
+            print(f"Some Error! {e}")  # Print the error message
+
+    # Start the download in a new thread
+    threading.Thread(target=download).start()
 
 
 
