@@ -27,13 +27,15 @@ class MyFrame(ctk.CTkFrame):
         )
         self.entry_widget = ctk.CTkEntry(master=self, width=500)
         # //////// This button sends data from my_entry to my_list widget
-        self.button1_widget = ctk.CTkButton(
+        my_class_instance = MyClass() # Initialize instance of the class
+
+        self.submit_widget = ctk.CTkButton(
             master=self,
-            command=lambda: download_video(self.entry_widget, self.listbox_widget),
+            command=lambda: my_class_instance.download_video(self.entry_widget, self.listbox_widget),
             text="Submit",
         )
 
-        self.button2_widget = ctk.CTkButton(
+        self.remove_widget = ctk.CTkButton(
             master=self,
             command=lambda: remove_entry(self.listbox_widget),
             text="Remove",
@@ -48,15 +50,17 @@ class MyFrame(ctk.CTkFrame):
             height=70,
             text="file dialog",
         )
-        self.add_value_widget = ctk.CTkButton(
+
+        self.progressbar_widget = ctk.CTkProgressBar(master=self)
+        # self.progressbar_widget = ctk.CTkProgressBar(master=self, mode="indeterminate")
+
+        self.browsefile_widget = ctk.CTkButton(
             master=self,
             width=10,
             height=10,
-            # command=lambda: entry_input(self.my_entry, self.listBox),
+            # command=lambda: progressbar_logic(self.progressbar_widget),
             text="Browse file",
         )
-        # ///////
-
         # This name indicates that the variable holds the state of the checkbox (checked or unchecked).
         self.checkbox_state = ctk.IntVar()
 
@@ -72,27 +76,31 @@ class MyFrame(ctk.CTkFrame):
         self.checkbox_widget.grid()
 
         # Placing widgets using Grid
-        self.label_widget.grid(row=1, column=0, padx=10, pady=10)
-        self.checkbox_widget.grid(row=2, column=2, padx=10, pady=10)
-        self.button1_widget.grid(row=3, column=0, padx=10, pady=10)
-        self.button2_widget.grid(row=3, column=1, sticky="w")
-        # //////////////////////////////////////////////////////////////////
-        # //// Am working on File dialog method here /////////////////////////
-        # //////////////////////////////////////////////////////////////////
-        self.add_value_widget.grid(row=4, column=0, padx=10, pady=10)
-        self.my_text_widget.grid(row=4, column=1, padx=10, pady=10, sticky="w")
-        # ///////
-        self.entry_widget.grid(row=2, column=0, padx=10, pady=10, columnspan=2)
+        # Row 0: Label
+        self.label_widget.grid(row=0, column=0, padx=10, pady=10, columnspan=3)
+        # Row 1: Progress Bar
+        self.progressbar_widget.grid(
+            row=1, column=0, padx=30, pady=30, columnspan=2, sticky="ew"
+        )
+        # Row 2: Entry Widget
+        self.entry_widget.grid(row=2, column=0, padx=10, pady=10, columnspan=3)
+        # Row 3: Checkbox (align to right in column 3)
+        self.checkbox_widget.grid(row=3, column=3, padx=10, pady=10, sticky="e")
+        # Row 3: Buttons (span columns for better alignment)
+        self.submit_widget.grid(row=3, column=0, padx=10, pady=10)
+        self.remove_widget.grid(row=3, column=1, padx=10, pady=10)
         self.listbox_widget.grid(
             row=5, column=0, padx=20, pady=20, sticky="ew", columnspan=2
         )
+        self.browsefile_widget.grid(row=4, column=0, padx=10, pady=10)
+        self.my_text_widget.grid(row=4, column=1, padx=10, pady=10, sticky="w")
 
 
 class App(ctk.CTk):
     def __init__(self):
         super().__init__()
         self.title("Grid")  # Use self to refer to the current instance
-        self.geometry("700x500")
+        self.geometry("700x570")
         # This is placing the class MyFrame above on to the root of the app
         self.my_frame = MyFrame(master=self)
         self.my_frame.grid()
