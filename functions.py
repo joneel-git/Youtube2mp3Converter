@@ -1,9 +1,10 @@
 from pytubefix import YouTube
 from pathlib import Path
+import subprocess
 import threading
 import progressbar
 import time
-import os
+import os, sys, subprocess
 
 
 class MyClass:
@@ -24,7 +25,19 @@ class MyClass:
     # Performs an action: opens the Downloads folder in the file explorer.
     # This method does not return a value.
     def open_downloads_path(self):
-        os.startfile(self.download_path())
+        self.check = os.name
+        if self.check == "posix":  # 'posix' is used for Linux and MacOS
+            isLinux = subprocess.run(["open", f"{self.downloads_path}"], check=True)
+            print("Yes, this is Linux or MacOS")
+            return isLinux
+        elif self.check == "nt":  # 'nt' is used for Windows
+            isWindows = os.startfile(self.download_path())
+            print("No, this is Windows")
+            return isWindows
+        else:
+            print("Unsupported OS")
+
+        # subprocess.Popen(self.downloads_path)
 
     # ///////////////////////////////////////////
     # / Add/Download file to list TODO /////////

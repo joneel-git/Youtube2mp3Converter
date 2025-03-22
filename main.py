@@ -4,7 +4,7 @@ from CTkListbox import *
 from functions import MyClass  # Import MyClass directly
 
 # Set appearance mode and color theme using public methods
-ctk.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
+ctk.set_appearance_mode("dark")  # Modes: "System" (standard), "Dark", "Light"
 ctk.set_default_color_theme(
     "themes/teal.json"
 )  # Themes: "blue" (standard), "green", "dark-blue"
