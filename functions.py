@@ -1,16 +1,13 @@
 from pytubefix import YouTube
 from pathlib import Path
-import subprocess
-import threading
-import progressbar
-import time
-import os, sys, subprocess
+import os, sys, threading, time, subprocess
 
 
 class MyClass:
     def __init__(self, progressbar_widget):
         self.progressbar_widget = progressbar_widget
         self.downloads_path = str(Path.home() / "Downloads")
+        self.check = os.name
 
     # ///////////////////////////////////////////
     # //// Get Downloads Path //////////////////
@@ -25,7 +22,6 @@ class MyClass:
     # Performs an action: opens the Downloads folder in the file explorer.
     # This method does not return a value.
     def open_downloads_path(self):
-        self.check = os.name
         if self.check == "posix":  # 'posix' is used for Linux and MacOS
             isLinux = subprocess.run(["open", f"{self.downloads_path}"], check=True)
             print("Yes, this is Linux or MacOS")
