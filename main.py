@@ -13,7 +13,7 @@ ctk.set_default_color_theme(
 class MyGUI:
     def __init__(self, master):
         self.master = master
-        self.c = MyClass(self)  # Store MyClass instance
+        self.myclass = MyClass(self)  # Store MyClass instance
 
         self.create_widgets()  # Create widgets
         self.layout_widgets()  # Layout widgets
@@ -29,7 +29,7 @@ class MyGUI:
         # Button to submit data
         self.submit_widget = CTkButton(
             self.master,
-            command=lambda: self.c.download_video(
+            command=lambda: self.myclass.video_Info(
                 self.entry_widget, self.listbox_widget
             ),
             text="Submit",
@@ -38,8 +38,8 @@ class MyGUI:
         self.progressbar_widget = CTkProgressBar(self.master)
         self.remove_widget = CTkButton(
             self.master,
-            command=lambda: self.c.progress_the_bar(),
-            text="Test progressbar",
+            command=lambda: self.myclass.remove_entry(),
+            text="remove_entry",
         )
 
         # File dialog method
@@ -50,7 +50,7 @@ class MyGUI:
             self.master,
             width=10,
             height=10,
-            command= self.c.open_downloads_path,
+            command=self.myclass.open_downloads_path,
             text="Browse file",
         )
 
@@ -59,7 +59,7 @@ class MyGUI:
         self.checkbox_widget = CTkCheckBox(
             self.master,
             text="CTkCheckBox",
-            command=lambda: self.c.checkbox_event(self.is_checked),
+            command=lambda: self.myclass.checkbox_event(self.is_checked),
             variable=self.is_checked,
             onvalue=1,
             offvalue=0,

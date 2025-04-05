@@ -1,26 +1,44 @@
 from pytubefix import YouTube
 from pathlib import Path
+from CTkMessagebox import CTkMessagebox
 import os, sys, threading, time, subprocess
 
 
 class MyClass:
     def __init__(self, progressbar_widget):
         self.progressbar_widget = progressbar_widget
-        self.downloads_path = str(Path.home() / "Downloads")
+        self.downloads_path = Path.home() / "Downloads"
         self.check = os.name
 
-    # ///////////////////////////////////////////
-    # //// Get Downloads Path //////////////////
-    # ///////////////////////////////////////////
-    # Computes and returns the file path to the user's Downloads directory.
+    def path_to_images(self, image):
+        # Step 1 get the path to images
+        self.images_dir = Path.cwd() / "images" / image
+        # Step 2 define image files and open them
+        image = self.images_dir
+        print(image)
+        return image
+
+    def error_message(self, error):
+        CTkMessagebox(
+            title="Error",
+            message=f"Nope an error . {error}",
+            icon=self.path_to_images("error.png"),
+        )
+
+    def success_message(self, success):
+        CTkMessagebox(
+            title="Success",
+            message=f"Congratulations you did it. {success}",
+            icon=self.path_to_images("check.png"),
+        )
+
+    """ Trying to define Downloads Path TODO """
+
     def download_path(self):
         return self.downloads_path
 
-    # ///////////////////////////////////////////
-    # //// Open Downloads Folder ///////////////
-    # ///////////////////////////////////////////
-    # Performs an action: opens the Downloads folder in the file explorer.
-    # This method does not return a value.
+    """ Open Downloads Folder TODO """
+
     def open_downloads_path(self):
         if self.check == "posix":  # 'posix' is used for Linux and MacOS
             isLinux = subprocess.run(["open", f"{self.downloads_path}"], check=True)
@@ -33,23 +51,33 @@ class MyClass:
         else:
             print("Unsupported OS")
 
-        # subprocess.Popen(self.downloads_path)
+    """ Add/Download file to list TODO """
 
-    # ///////////////////////////////////////////
-    # / Add/Download file to list TODO /////////
-    # //////////////////////////////////////////
+    def video_Info(self, entry_widget, listbox_widget):
+        try:
+            URL = entry_widget.get()
+            yt = YouTube(URL)  # Create Youtube Object.
+            print("Title : ", yt.title)
+            print("Total Length : ", yt.length, " Seconds")
+            print("Total Views : ", yt.views)
+            print("Is Age Restricted : ", yt.age_restricted)
+            # print("Video Rating ", round(yt.rating))
+            print("Thumbnail Url : ", yt.thumbnail_url)
+            listbox_widget.insert("end", yt.title, yt.author)
+            return self.success_message(success=yt)
+        except Exception as e:
+            self.error_message(e)
 
-    # ///////////////////////////////////////////
-    # //// Remove file from list TODO ///////////
-    # ///////////////////////////////////////////
-    # Removing method
-    def remove_entry(listbox_widget):
+    # call the function
+    # video_info(yt)
+
+    """ Remove file from list TODO """
+
+    def remove_entry(self, listbox_widget):
         listbox_widget.delete(0, "END")
 
-    # ///////////////////////////////////////////
-    # //// Implement progressbar TODO ///////////
-    # ///////////////////////////////////////////
-    #  Action function rather than compute and return function
+    """ Implement progressbar TODO """
+
     def progress_the_bar(self):
         print("Are we even talking to the widget")
         try:
@@ -58,10 +86,8 @@ class MyClass:
         except Exception as e:
             print(f"Error updating progress bar: {e}")
 
-    # ///////////////////////////////////////////
-    # //// Checkbox event TODO /////////////////
-    # ///////////////////////////////////////////
-    # @staticmethod
+    """ Checkbox event TODO """
+
     def checkbox_event(self, is_checked):
         # Access the value of the associated variable directly
         current_value = is_checked.get()  # This will work now
@@ -69,10 +95,3 @@ class MyClass:
             print("Checkbox is on, current value: ", current_value)
         else:
             print("Checkbox is off, current value: ", current_value)
-
-
-# def download_video(self, entry_widget, listbox_widget):
-#     value = self.
-
-#     # Start the download in a new thread
-#     threading.Thread(target=download).start()
