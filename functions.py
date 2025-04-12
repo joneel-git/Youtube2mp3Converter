@@ -32,12 +32,12 @@ class MyClass:
             icon=self.path_to_images("check.png"),
         )
 
-    """ Trying to define Downloads Path TODO """
+    # Trying to define Downloads Path TODO """
 
     def download_path(self):
         return self.downloads_path
 
-    """ Open Downloads Folder TODO """
+    # Open Downloads Folder TODO """
 
     def open_downloads_path(self):
         if self.check == "posix":  # 'posix' is used for Linux and MacOS
@@ -51,7 +51,7 @@ class MyClass:
         else:
             print("Unsupported OS")
 
-    """ Add/Download file to list TODO """
+    # Add/Download file to list TODO """
 
     def video_Info(self, entry_widget, listbox_widget):
         try:
@@ -71,12 +71,12 @@ class MyClass:
     # call the function
     # video_info(yt)
 
-    """ Remove file from list TODO """
+    # Remove file from list TODO """
 
     def remove_entry(self, listbox_widget):
         listbox_widget.delete(0, "END")
 
-    """ Implement progressbar TODO """
+    # Implement progressbar TODO """
 
     def progress_the_bar(self):
         print("Are we even talking to the widget")
@@ -86,7 +86,7 @@ class MyClass:
         except Exception as e:
             print(f"Error updating progress bar: {e}")
 
-    """ Checkbox event TODO """
+    # Checkbox event TODO """
 
     def checkbox_event(self, is_checked):
         # Access the value of the associated variable directly
