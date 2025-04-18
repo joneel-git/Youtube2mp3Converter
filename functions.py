@@ -3,12 +3,10 @@ from pathlib import Path
 
 
 class Functions:
-    def __init__(self):
-        pass  # Constructor method, currently does nothing
-
-    def attributes(self, entry_widget, listbox_widget, downloads_path, check):
+    def __init__(self, entry_widget, listbox_widget, downloads_path, check, is_checked):
         # Store references to the provided widgets and paths for later use
         self.downloads_path = downloads_path
+        self.is_checked = is_checked
         self.check = check
         self.entry_widget = entry_widget
         self.listbox_widget = listbox_widget
@@ -20,7 +18,9 @@ class Functions:
         if get_input:  # Check if input is not empty
             self.listbox_widget.insert("end", get_input)  # Add input to the listbox
         else:
-            print("Couldn't retrieve input; something went wrong.")  # Log error if input is empty
+            print(
+                "Couldn't retrieve input; something went wrong."
+            )  # Log error if input is empty
 
     def remove_entry(self):
         # Placeholder for logic to remove an entry from the listbox
@@ -33,3 +33,8 @@ class Functions:
         self.check = os.name  # Store the name of the operating system
         print("Checking OS:", str(self.check))  # Log the OS name
 
+    def checkbox_event(self):
+        if self.is_checked.get() == 1:
+            print("checkbox is toggled ON")
+        else:
+            print("checkbox is toggled OFF")
