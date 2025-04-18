@@ -1,100 +1,66 @@
 from customtkinter import *
-import customtkinter as ctk
 from CTkListbox import *
-from functions import MyClass  # Import MyClass directly
-
-# Set appearance mode and color theme using public methods
-ctk.set_appearance_mode("dark")  # Modes: "System" (standard), "Dark", "Light"
-ctk.set_default_color_theme(
-    "themes/teal.json"
-)  # Themes: "blue" (standard), "green", "dark-blue"
+from functions import *
+from layout import *
 
 
-class MyGUI:
-    def __init__(self, master):
-        self.master = master
-        self.myclass = MyClass(self)  # Store MyClass instance
+# Define a class that inherits from CTk, which is the main window class in tkinter
+class Main_container(CTk, Functions):
+    def __init__(self):
+        super().__init__()  # Call the initializer of the parent class (CTk)
+        self.title("My Tkinter App")
+        self.geometry("800x600")
 
-        self.create_widgets()  # Create widgets
-        self.layout_widgets()  # Layout widgets
-
-    def create_widgets(self):
         # Create all widgets
-        self.label_widget = CTkLabel(self.master, text="I am a Label")
+        self.label_widget = CTkLabel(self, text="I am a Label")
         self.listbox_widget = CTkListbox(
-            self.master, border_color="gray", border_width=1, width=500, height=200
+            self, border_color="gray", border_width=1, width=500, height=200
         )
-        self.entry_widget = CTkEntry(self.master, width=500)
+        self.entry_widget = CTkEntry(self, width=500)
 
         # Button to submit data
         self.submit_widget = CTkButton(
-            self.master,
-            command=lambda: self.myclass.video_Info(
-                self.entry_widget, self.listbox_widget
-            ),
+            self,
+            command=self.submit_data,
             text="Submit",
         )
 
-        self.progressbar_widget = CTkProgressBar(self.master)
+        self.progressbar_widget = CTkProgressBar(self)
+
         self.remove_widget = CTkButton(
-            self.master,
-            command=lambda: self.myclass.remove_entry(),
-            text="remove_entry",
+            self,
+            command=self.remove_entry,
+            text="Remove Entry",
         )
 
         # File dialog method
         self.my_text_widget = CTkLabel(
-            self.master, text_color="green", width=100, height=70, text="file dialog"
+            self, text_color="green", width=100, height=70, text="File dialog"
         )
         self.browsefile_widget = CTkButton(
-            self.master,
+            self,
             width=10,
             height=10,
-            command=self.myclass.open_downloads_path,
+            command=self.open_downloads_path, 
             text="Browse file",
         )
 
         # Checkbox state
         self.is_checked = IntVar()
         self.checkbox_widget = CTkCheckBox(
-            self.master,
+            self,
             text="CTkCheckBox",
-            command=lambda: self.myclass.checkbox_event(self.is_checked),
+            command=self.checkbox_event,
             variable=self.is_checked,
             onvalue=1,
             offvalue=0,
         )
 
-    def layout_widgets(self):
-        # Place widgets using Grid
-        self.label_widget.grid(row=0, column=0, padx=10, pady=10, columnspan=3)
-        self.progressbar_widget.grid(
-            row=1, column=0, padx=30, pady=30, columnspan=2, sticky="ew"
-        )
-        self.entry_widget.grid(row=2, column=0, padx=10, pady=10, columnspan=3)
-        self.checkbox_widget.grid(row=3, column=3, padx=10, pady=10, sticky="e")
-        self.submit_widget.grid(row=3, column=0, padx=10, pady=10)
-        self.remove_widget.grid(row=3, column=1, padx=10, pady=10)
-        self.listbox_widget.grid(
-            row=5, column=0, padx=20, pady=20, sticky="ew", columnspan=2
-        )
-        self.browsefile_widget.grid(row=4, column=0, padx=10, pady=10)
-        self.my_text_widget.grid(row=4, column=1, padx=10, pady=10, sticky="w")
+        # Layout the widgets using the function from layout.py
+        Layout_widgets.layout_widgets(self)
 
 
-class Main:
-    def __init__(self):
-        self.root = ctk.CTk()  # Create the main window
-        self.root.title("Grid")
-        self.root.geometry("700x570")
-
-        # Initialize MyGUI with the main window
-        self.gui = MyGUI(self.root)
-
-    def run(self):
-        self.root.mainloop()  # Start the main loop
-
-
+# Create an instance of the Main_container class, which initializes the Tkinter window
 if __name__ == "__main__":
-    app = Main()
-    app.run()  # This runs the app
+    container = Main_container()
+    container.mainloop()
